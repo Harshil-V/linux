@@ -15,7 +15,8 @@
 #define IA32_VMX_ENTRY_CTLS  0x484
 #define IA32_VMX_EXIT_CTLS  0x483
 #define IA32_VMX_PROCBASED_CTLS  0x482
-#define IA32_VMX_PROCBASED_CTLS2 0x48B
+#define IA32_VMX_PROCBASED_CTLS2  0x48B
+#define IA32_VMX_PROCBASED_CTLS3  0x492
 /*
  * struct caapability_info
  *
@@ -58,7 +59,7 @@ struct capability_info entryctls[14] =
 	{ 16, "Load IA32_BNDCFGS" },
 	{ 17, "Conceal VMX from PT" },
 	{ 18, "Load IA32_RTIT_CTL" },
-    { 19, "Load UINV" },
+        { 19, "Load UINV" },
 	{ 20, "Load CET state" },
 	{ 21, "Load guest IA32_LBR_CTL" },
 	{ 22, "Load PKRS" },
@@ -160,6 +161,21 @@ struct capability_info procbasedsecondary[31] =
 	
 };
 
+
+/*
+ * VM-Tertiary-Procbased Controls
+ * See SDM volume 3C, section 25.6.2
+ */
+struct capability_info procbasedtertiaryctls[6] =
+{
+	{ 0, "LOADIWKEY exiting" },
+	{ 1, "Enable HLAT" },
+	{ 2, "EPT paging-write control" },
+	{ 3, "Guest-paging verification" },
+	{ 4, "IPI virtualization" },
+	{ 7, "Virtualize IA32_SPEC_CTRL" },
+};
+
 /*
  * report_capability
  *
@@ -231,6 +247,12 @@ detect_vmx_features(void)
 	pr_info("VM-SecondaryProcbased Controls MSR: 0x%llx\n",
 		(uint64_t)(lo | (uint64_t)hi << 32));
 	report_capability(procbasedsecondary, 31, lo, hi);
+
+	/* VM-Tertiary-Procbased Controls */
+	rdmsr(IA32_VMX_PROCBASED_CTLS3, lo, hi);
+	pr_info("VM-Tertiary-Procbased Controls MSR: 0x%llx\n",
+		(uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(procbasedtertiaryctls, 6, lo, hi);
 }
 
 /*
