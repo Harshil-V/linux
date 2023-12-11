@@ -55,7 +55,7 @@ struct capability_info entryctls[14] =
 	{ 16, "Load IA32_BNDCFGS" },
 	{ 17, "Conceal VMX from PT" },
 	{ 18, "Load IA32_RTIT_CTL" },
-    { 19, "Load UINV" },
+        { 19, "Load UINV" },  
 	{ 20, "Load CET state" },
 	{ 21, "Load guest IA32_LBR_CTL" },
 	{ 22, "Load PKRS" },
