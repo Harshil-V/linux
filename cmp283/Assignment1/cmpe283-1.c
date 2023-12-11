@@ -12,7 +12,7 @@
  * See SDM volume 4, section 2.1
  */
 #define IA32_VMX_PINBASED_CTLS	0x481
-
+#define IA32_VMX_ENTRY_CTLS  0x484
 /*
  * struct caapability_info
  *
@@ -36,6 +36,29 @@ struct capability_info pinbased[5] =
 	{ 5, "Virtual NMIs" },
 	{ 6, "Activate VMX Preemption Timer" },
 	{ 7, "Process Posted Interrupts" }
+};
+
+
+/*
+ * VM-Entry Controls
+ * See SDM volume 3C, section 25.8.1
+ */
+struct capability_info entryctls[14] =
+{
+	{ 2, "Load debug controls" },
+	{ 9, "IA-32e mode guest" },
+	{ 10, "Entry to SMM" },
+	{ 11, "Deactivate dual-monitor treatment" },
+	{ 13, "Load IA32_PERF_GLOBAL_CTRL" },
+	{ 14, "Load IA32_PAT" },
+	{ 15, "Load IA32_EFER" },
+	{ 16, "Load IA32_BNDCFGS" },
+	{ 17, "Conceal VMX from PT" },
+	{ 18, "Load IA32_RTIT_CTL" },
+    { 19, "Load UINV" },
+	{ 20, "Load CET state" },
+	{ 21, "Load guest IA32_LBR_CTL" },
+	{ 22, "Load PKRS" },
 };
 
 /*
@@ -85,6 +108,13 @@ detect_vmx_features(void)
 	pr_info("Pinbased Controls MSR: 0x%llx\n",
 		(uint64_t)(lo | (uint64_t)hi << 32));
 	report_capability(pinbased, 5, lo, hi);
+
+	/* VM-Entry Controls */
+	rdmsr(IA32_VMX_ENTRY_CTLS, lo, hi);
+	pr_info("VM-Entry Controls MSR: 0x%llx\n",
+		(uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(entryctls, 14, lo, hi);
+
 }
 
 /*
