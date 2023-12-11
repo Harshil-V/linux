@@ -13,6 +13,7 @@
  */
 #define IA32_VMX_PINBASED_CTLS	0x481
 #define IA32_VMX_ENTRY_CTLS  0x484
+#define IA32_VMX_EXIT_CTLS  0x483
 /*
  * struct caapability_info
  *
@@ -55,10 +56,36 @@ struct capability_info entryctls[14] =
 	{ 16, "Load IA32_BNDCFGS" },
 	{ 17, "Conceal VMX from PT" },
 	{ 18, "Load IA32_RTIT_CTL" },
-        { 19, "Load UINV" },  
+    { 19, "Load UINV" },
 	{ 20, "Load CET state" },
 	{ 21, "Load guest IA32_LBR_CTL" },
 	{ 22, "Load PKRS" },
+};
+
+/*
+ * VM-Exity Controls
+ * See SDM volume 3C, section 25.7.1
+ */
+struct capability_info exitctls[18] =
+{
+	{ 2, "Save debug controls" },
+	{ 9, "Host address space size" },
+	{ 12, "Load IA32_PERF_GLOBAL_CTRL" },
+	{ 15, "Acknowledge Interrupt on exit" },
+	{ 18, "Save IA32_PAT" },
+	{ 19, "Load IA32_PAT" },
+	{ 20, "Save IA32_EFER" },
+	{ 21, "Load IA32_EFER" },
+	{ 22, "Save VMX-preemption timer value" },
+	{ 23, "Clear IA32_BNDCFGS" },
+	{ 24, "Conceal VMX from PT" }
+	{ 25, "Clear IA32_RTIT_CTL" }
+	{ 26, "Clear IA32_LBR_CTL" }
+	{ 27, "Clear UNIV" }
+	{ 28, "Load CET state" }
+	{ 29, "Load PKRS" }
+	{ 30, "Save IA32_PREF_GLOBAL_CTL" }
+	{ 31, "Activate secondary controls" }
 };
 
 /*
@@ -115,6 +142,11 @@ detect_vmx_features(void)
 		(uint64_t)(lo | (uint64_t)hi << 32));
 	report_capability(entryctls, 14, lo, hi);
 
+	/* VM-Exit Controls */
+	rdmsr(IA32_VMX_EXIT_CTLS, lo, hi);
+	pr_info("VM-Exit Controls MSR: 0x%llx\n",
+		(uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(exitctls, 14, lo, hi);
 }
 
 /*
