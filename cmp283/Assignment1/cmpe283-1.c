@@ -14,6 +14,7 @@
 #define IA32_VMX_PINBASED_CTLS	0x481
 #define IA32_VMX_ENTRY_CTLS  0x484
 #define IA32_VMX_EXIT_CTLS  0x483
+#define IA32_VMX_PROCBASED_CTLS  0x482
 /*
  * struct caapability_info
  *
@@ -63,7 +64,7 @@ struct capability_info entryctls[14] =
 };
 
 /*
- * VM-Exity Controls
+ * VM-Exit Controls
  * See SDM volume 3C, section 25.7.1
  */
 struct capability_info exitctls[18] =
@@ -85,6 +86,36 @@ struct capability_info exitctls[18] =
 	{ 28, "Load CET state" }
 	{ 29, "Load PKRS" }
 	{ 30, "Save IA32_PREF_GLOBAL_CTL" }
+	{ 31, "Activate secondary controls" }
+};
+
+/*
+ * VM-Procbased Controls
+ * See SDM volume 3C, section 25.6.2
+ */
+struct capability_info procbased[22] =
+{
+	{ 2, "Interrupt-window exiting" },
+	{ 3, "Use TSC offsetting" },
+	{ 7, "HLT exiting" },
+	{ 9, "INVLPG exiting" },
+	{ 10, "MWAIT exiting" },
+	{ 11, "RDPMC exiting" },
+	{ 12, "RDTSC exiting" },
+	{ 15, "CR3-load exiting" },
+	{ 16, "CR3-store exiting" },
+	{ 17, "Activate tertiary controls" },
+	{ 19, "CR8-load exiting" },
+	{ 20, "CR8-store exiting" },
+	{ 21, "Use TPR shadow" },
+	{ 22, "NMI-window exiting" },
+	{ 23, "MOV-DR exiting" },
+	{ 24, "Unconditional I/O exiting" },
+	{ 25, "Use I/O bitmaps" },
+	{ 27, "Monitor trap flag" },
+	{ 28, "Use MSR bitmaps" },
+	{ 29, "MONITOR exiting" },
+	{ 30, "PAUSE exiting" },
 	{ 31, "Activate secondary controls" }
 };
 
@@ -146,7 +177,13 @@ detect_vmx_features(void)
 	rdmsr(IA32_VMX_EXIT_CTLS, lo, hi);
 	pr_info("VM-Exit Controls MSR: 0x%llx\n",
 		(uint64_t)(lo | (uint64_t)hi << 32));
-	report_capability(exitctls, 14, lo, hi);
+	report_capability(exitctls, 18, lo, hi);
+
+	/* VM-Procbased Controls */
+	rdmsr(IA32_VMX_PROCBASED_CTLS, lo, hi);
+	pr_info("VM-Procbased Controls MSR: 0x%llx\n",
+		(uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(procbased, 22, lo, hi);
 }
 
 /*
