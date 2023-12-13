@@ -3,7 +3,8 @@
 2. Vidhi Agarwal
 
 # Individual Contribution
-Harshil- He setup the gcp instance environment for assignment 1 and did the coding for entry,exit and tertiary controls.
+Harshil- He setup the gcp instance environment for assignment 1 and did the coding for entry,exit and tertiary controls. 
+
 Vidhi- Helped with the research for the exit controls from the SDM and helped in coding the procbased and secondary procbased controls.
 
 # Steps to do the assignment:
