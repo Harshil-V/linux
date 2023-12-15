@@ -62,7 +62,7 @@ struct capability_info entryctls[14] =
         { 19, "Load UINV" },
 	{ 20, "Load CET state" },
 	{ 21, "Load guest IA32_LBR_CTL" },
-	{ 22, "Load PKRS" },
+	{ 22, "Load PKRS" }
 };
 
 /*
@@ -81,13 +81,13 @@ struct capability_info exitctls[18] =
 	{ 21, "Load IA32_EFER" },
 	{ 22, "Save VMX-preemption timer value" },
 	{ 23, "Clear IA32_BNDCFGS" },
-	{ 24, "Conceal VMX from PT" }
-	{ 25, "Clear IA32_RTIT_CTL" }
-	{ 26, "Clear IA32_LBR_CTL" }
-	{ 27, "Clear UNIV" }
-	{ 28, "Load CET state" }
-	{ 29, "Load PKRS" }
-	{ 30, "Save IA32_PREF_GLOBAL_CTL" }
+	{ 24, "Conceal VMX from PT" },
+	{ 25, "Clear IA32_RTIT_CTL" },
+	{ 26, "Clear IA32_LBR_CTL" },
+	{ 27, "Clear UNIV" },
+	{ 28, "Load CET state" },
+	{ 29, "Load PKRS" },
+	{ 30, "Save IA32_PREF_GLOBAL_CTL" },
 	{ 31, "Activate secondary controls" }
 };
 
@@ -173,7 +173,7 @@ struct capability_info procbasedtertiaryctls[6] =
 	{ 2, "EPT paging-write control" },
 	{ 3, "Guest-paging verification" },
 	{ 4, "IPI virtualization" },
-	{ 7, "Virtualize IA32_SPEC_CTRL" },
+	{ 7, "Virtualize IA32_SPEC_CTRL" }
 };
 
 /*
