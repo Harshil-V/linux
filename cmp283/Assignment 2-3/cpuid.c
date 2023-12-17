@@ -1603,7 +1603,6 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
                                 ecx = low_32_bits;
                                 edx = 0;
                                 printk(KERN_INFO "0x4FFFFFFC TOTAL EXIT=%d, PROCESSING TIME= %llu",ecx,exit_time);
-
                         }
                 }
         } else {
