@@ -129,7 +129,7 @@ $ virsh shutdown [your VM name]
 
 4. Of the exit types defined in the SDM, which are the most frequent? Least?
 
-    > Answer: <br> For us, out of all the exits defined in SDM, the most frequent is exit number 10, with total exits as 246621 and the least ones were 29 and 55, with total exits as only 2.
+    > Answer: <br> For us, out of all the exits defined in SDM, the most frequent is exit number 10, with total exits as 246621 and the least ones were 29 and 55, with total exits as only 2. There were many exit numbers with 0 exits.
 
 
 
