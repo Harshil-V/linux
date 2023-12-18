@@ -19,13 +19,16 @@ $ sudo apt-get install libncurses-dev gawk flex bison openssl libssl-dev dkms li
 $ git clone https://github.com/Harshil-V/linux.git
 ```
 
-4. Copy the cmpe283-1.c and the Makefile into the instance.
+4. Copy the cmpe283-1.c.
 ```bash
 $ cd linux
 $ cp /boot/[user version] .config
 ```
 5. Refer the Intel SDM and make code changes in cmpe283-1.c for the entry, exit, procbased, secondary procbased and teritiary procbased vmexit controls.
 6. Do a make in the root directory.
+```bash
+$ make
+```
 7. By doing ls, verify that a **.ko** file was generated.
 8. Now, to verify code changes, do **sudo insmod cmpe283-1.ko** and then **dmesg**, you should be able to see VMX capabilities of all the MSRs.
 ```bash
