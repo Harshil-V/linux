@@ -96,8 +96,9 @@ $ virt-install --network bridge:virbr0 --name nested-vm --os-variant=centos7.0 -
 15. Start The VM and enter console
 
 ```bash
-$ virsh start [your vm name]
-$ virsh console [your vm name]
+$ virsh start [your VM name]
+$ virsh console [your VM name]
+$ virsh shutdown [your VM name]
 ```
 
 ## Questions
